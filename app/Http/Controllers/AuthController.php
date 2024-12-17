@@ -42,12 +42,16 @@ class AuthController extends Controller
         $token = $user->createToken($user->name);
 
         return [
-            'message' => 'the user was login',
+            'message' => 'You are logged in',
             'token' => $token->plainTextToken
         ];
     }
 
     public function logout(Request $request) {
-        return 'logout';
+        $request->user()->tokens()->delete();
+
+        return [
+            'message' => 'You are logged out'
+        ];
     }
 }
